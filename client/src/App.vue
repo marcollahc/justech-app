@@ -17,10 +17,15 @@ import { TheSideBar, TheHeader } from '@/components'
 
 </script>
 <style lang="scss">
+  html {
+    height: 100%;
+  }
+
   body {
     display: flex;
     background-color: $default-white;
     width: 100%;
+    height: 100%;
   }
 
   #app {
@@ -29,6 +34,7 @@ import { TheSideBar, TheHeader } from '@/components'
     margin: 0;
     padding: 0;
     font-family: 'Oxygen', sans-serif;
+    height: 100%;
 
     .main-wrapper {
       display: flex;
@@ -38,6 +44,7 @@ import { TheSideBar, TheHeader } from '@/components'
         display: flex;
         flex-direction: column;
         align-items: center;
+        width: 22%;
       }
     }
   }

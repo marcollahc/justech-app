@@ -3,12 +3,13 @@
     :class="[
       'base-button',
       `base-button--${type}`,
-      { 'base-button--has-icon-text': buttonHasIconAndText }
+      { 'base-button--uppercase': uppercase}
     ]"
     @click="invokeOnClickFunction()"
   >
-    <font-awesome-icon v-if="icon" :icon="icon" />
-    {{ text }}
+    <font-awesome-icon class="base-button__before-icon" v-if="beforeIcon" :icon="beforeIcon" />
+    <span>{{ text }}</span>
+    <font-awesome-icon class="base-button__after-icon" v-if="afterIcon" :icon="afterIcon" />
   </button>
 </template>
 
@@ -22,15 +23,25 @@ export default {
     },
     type: {
       type: String,
-      required: true
+      required: true,
+      default: 'primary'
     },
     onClick: {
       type: Function,
       required: true
     },
-    icon: {
+    beforeIcon: {
       type: Array,
       required: false
+    },
+    afterIcon: {
+      type: Array,
+      required: false
+    },
+    uppercase: {
+      type: Boolean,
+      required: false,
+      default: true
     }
   },
   computed: {
@@ -58,12 +69,18 @@ export default {
   padding: 0.375rem 0.75rem;
   font-size: 0.9rem;
   font-weight: 600;
-  text-transform: uppercase;
   box-shadow: 0 0.07rem 0.3rem rgba(0, 0, 0, 0.25);
   border: 1px solid;
   outline: none;
   cursor: pointer;
   transition: ease-in 0.1s;
+  gap: 0.5rem;
+  font-family: 'Oxygen', sans-serif;
+
+  span {
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
 
   &:disabled {
     background-color: #d8d8d8;
@@ -76,6 +93,10 @@ export default {
     path {
       fill: #666666;
     }
+  }
+
+  &--uppercase {
+    text-transform: uppercase;
   }
 
   &--primary {
@@ -131,8 +152,10 @@ export default {
 
   &--tertiary {
     color: #000;
-    border-color: $default-white;
+    border: none;
     background-color: transparent;
+    box-shadow: none;
+    border-radius: 0.25rem;
 
     &:not([disabled]):hover,
     &:not([disabled]):active,
@@ -154,13 +177,6 @@ export default {
     svg,
     path {
       fill: #000;
-    }
-  }
-
-  &--has-icon-text {
-    svg,
-    path {
-      margin-right: 0.3rem;
     }
   }
 }
