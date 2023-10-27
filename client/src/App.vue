@@ -26,6 +26,7 @@ import { TheSideBar, TheHeader } from '@/components'
     background-color: $default-white;
     width: 100%;
     height: 100%;
+    overflow: hidden;
   }
 
   #app {
@@ -33,7 +34,6 @@ import { TheSideBar, TheHeader } from '@/components'
     width: 100%;
     margin: 0;
     padding: 0;
-    font-family: 'Oxygen', sans-serif;
     height: 100%;
 
     .main-wrapper {
@@ -45,6 +45,11 @@ import { TheSideBar, TheHeader } from '@/components'
         flex-direction: column;
         align-items: center;
         width: 22%;
+      }
+
+      &__main-content {
+        width: 100%;
+        overflow: auto;
       }
     }
   }

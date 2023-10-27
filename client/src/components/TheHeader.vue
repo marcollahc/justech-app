@@ -21,7 +21,6 @@ export default {
     width: 100%;
     background: linear-gradient(0deg, #F2F2F2, #F2F2F2),
                 linear-gradient(0deg, #FAFAFA, #FAFAFA);
-    color: #000;
     border: solid $border-gray;
     border-width: 0 0.063rem 0.063rem 0;
 

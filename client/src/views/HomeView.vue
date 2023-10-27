@@ -7,3 +7,9 @@ import TheHome from '../components/TheHome.vue'
     <TheHome />
   </main>
 </template>
+
+<style lang="scss">
+main {
+  width: 100%;
+}
+</style>

@@ -56,7 +56,6 @@ export default {
 <style lang="scss">
 
 .list-wrapper {
-  color: #000;
   font-size: 1.1rem;
   display: flex;
 

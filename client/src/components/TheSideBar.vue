@@ -126,7 +126,6 @@ export default {
 
   h3 {
     font-size: 0.9rem;
-    color: #000;
     text-transform: uppercase;
     font-weight: 600;
   }
@@ -135,7 +134,6 @@ export default {
     width: 100%;
     padding: 0;
     margin-bottom: 0.5rem;
-    color: #000;
   }
 
   .base-button {

@@ -1,5 +1,7 @@
-import BaseButton from './BaseButton.vue'
+import BaseButton from './BaseButton.vue';
+import BaseInput from './BaseInput.vue';
 
 export {
-  BaseButton
+  BaseButton,
+  BaseInput
 };
