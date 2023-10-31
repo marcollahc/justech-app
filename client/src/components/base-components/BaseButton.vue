@@ -75,7 +75,7 @@ export default {
   cursor: pointer;
   transition: ease-in 0.1s;
   gap: 0.5rem;
-  font-family: 'Oxygen', sans-serif;
+  font-family: $default-font;
 
   span {
     font-size: 0.9rem;

@@ -10,7 +10,7 @@ import App from './App.vue'
 import router from './router'
 import VueApexCharts from "vue3-apexcharts";
 
-import { BaseButton } from './components/base-components'
+import { BaseButton, BaseInput, BaseSelect } from './components/base-components'
 
 library.add(fas, far);
 const app = createApp(App)
@@ -21,6 +21,8 @@ app
 
 app
 .component('base-button', BaseButton)
+.component('base-input', BaseInput)
+.component('base-select', BaseSelect)
 .component("font-awesome-icon", FontAwesomeIcon)
 .component('apexchart', VueApexCharts)
 

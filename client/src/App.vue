@@ -4,9 +4,9 @@
       <the-header></the-header>
       <the-side-bar></the-side-bar>
     </section>
-    <section class="main-wrapper__main-content">
+    <main class="main-wrapper__main-content">
       <router-view/>
-    </section>
+    </main>
   </div>
 
 </template>

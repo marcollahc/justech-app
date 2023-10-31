@@ -1,16 +1,25 @@
 <template>
-  <input
-    :id="id"
-    v-model="inputText"
-    type="text"
-    :placeholder="placeholder"
-    :autocomplete="autocomplete"
-    class="base-input"
-  />
+  <div class="input-wrapper">
+    <font-awesome-icon
+      class="input-wrapper__icon"
+      v-if="isSearch"
+      :icon="['fas', 'magnifying-glass']"
+    />
+    <input
+      :id="id"
+      v-model="inputText"
+      type="text"
+      :placeholder="placeholder"
+      :autocomplete="autocomplete"
+      class="base-input"
+      :class="{
+        'base-input--search': isSearch
+      }"
+    />
+  </div>
 </template>
 
 <script>
-
 export default {
   name: 'BaseInput',
   props: {
@@ -22,6 +31,9 @@ export default {
     },
     autocomplete: {
       type: Boolean
+    },
+    isSearch: {
+      type: Boolean
     }
   },
   data() {
@@ -31,15 +43,29 @@ export default {
   },
   watch: {
     inputText() {
-      this.$emit("update-input", this.inputText);
+      this.$emit('update-input', this.inputText)
     }
   }
 }
 </script>
 
 <style lang="scss">
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+
+  &__icon {
+    color: #495057;
+    position: absolute;
+    margin-left: 1rem;
+    width: 0.994rem;
+    z-index: 2;
+  }
+}
 
 .base-input {
+  font-family: $default-font;
   display: block;
   width: 100%;
   height: 2.5rem;
@@ -47,16 +73,26 @@ export default {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #495057;
+  color: #000;
   background-color: #fff;
   background-clip: padding-box;
-  box-shadow: 0 0.0rem 0.1rem rgba(0, 0, 0, 0.25);
+  box-shadow: 0 0rem 0.1rem rgba(0, 0, 0, 0.25);
   border: 1px solid #ced4da;
-  border-radius: 0.25rem;
-  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  border-radius: 0.375rem;
+  transition:
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+
+  &--search {
+    padding-left: 2.7rem;
+  }
 
   &:focus-visible {
     outline: 0;
+  }
+
+  &::placeholder {
+    color: #8e8e8e;
   }
 
   &:focus {

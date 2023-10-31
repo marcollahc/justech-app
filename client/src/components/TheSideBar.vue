@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import FeaturesList from './FeaturesList.vue';
+import FeaturesList from '@/components/FeaturesList.vue';
 
 export default {
   name: "TheSideBar",

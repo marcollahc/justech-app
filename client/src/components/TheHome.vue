@@ -12,16 +12,18 @@
 
     <div class="home-page-wrapper__processes-container">
       <h3>Processos em andamento</h3>
+      <processes-list></processes-list>
     </div>
   </section>
 </template>
 
 <script>
-import MainGraph from './MainGraph.vue'
+import MainGraph from '@/components/MainGraph.vue';
+import ProcessesList from '@/components/ProcessesList.vue';
 
 export default {
   name: 'TheHome',
-  components: { MainGraph },
+  components: { MainGraph, ProcessesList },
   data() {
     return {
     }
