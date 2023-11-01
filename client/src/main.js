@@ -7,17 +7,15 @@ import { far } from '@fortawesome/free-regular-svg-icons';
 
 import { createApp } from 'vue'
 import App from './App.vue'
-import router from './router'
 import VueApexCharts from "vue3-apexcharts";
+import router from './router/index.js'
 
 import { BaseButton, BaseInput, BaseSelect } from './components/base-components'
 
 library.add(fas, far);
 const app = createApp(App)
 
-app
-  .use(router)
-  .use(VueApexCharts)
+app.use(router)
 
 app
 .component('base-button', BaseButton)

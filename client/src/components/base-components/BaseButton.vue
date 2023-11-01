@@ -28,7 +28,7 @@ export default {
     },
     onClick: {
       type: Function,
-      required: true
+      required: false
     },
     beforeIcon: {
       type: Array,

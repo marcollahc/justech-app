@@ -76,8 +76,12 @@ export default {
   data() {
     return {
       queryFeatures: [
-        'PJE',
-        'ESAJ'
+        'Justiça Eleitoral',
+        'Justiça Estadual',
+        'Justiça Federal',
+        'Justiça Militar',
+        'Justiça do Trabalho',
+        'Tribunais Superiores'
       ],
       createDocumentFeatures: [
         'Petição inicial',
@@ -87,6 +91,8 @@ export default {
         'Ver mais modelos'
       ]
     }
+  },
+  methods: {
   }
 };
 </script>

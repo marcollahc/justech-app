@@ -54,7 +54,6 @@ export default {
 .graph-wrapper {
   display: flex;
   flex-direction: row;
-  justify-content: center;
   align-items: center;
   width: 100%;
   justify-content: space-between;
@@ -83,7 +82,7 @@ export default {
     gap: 0.5rem;
 
     .number {
-      font-family: 'Roboto', 'Oxygen';
+      font-family: 'Roboto', 'Oxygen', sans-serif;
       font-size: 2rem;
       font-weight: 900;
       color: $primary;

@@ -1,10 +1,15 @@
-<script setup>
-import TheHome from '../components/TheHome.vue'
-</script>
-
 <template>
-    <TheHome />
+  <the-home></the-home>
 </template>
+
+<script>
+import TheHome from '@/components/TheHome.vue'
+
+export default {
+  name: 'HomeView',
+  components: { TheHome }
+}
+</script>
 
 <style lang="scss">
 main {

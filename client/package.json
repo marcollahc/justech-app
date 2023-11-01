@@ -1,6 +1,6 @@
 {
   "name": "lawers-project",
-  "version": "0.0.0",
+  "version": "0.7.0",
   "private": true,
   "scripts": {
     "dev": "vite",

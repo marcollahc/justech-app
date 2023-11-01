@@ -15,7 +15,7 @@
 
       <transition name="fade">
         <ul class="list-wrapper__list" v-if="menuOpen">
-          <li v-for="feature in featuresList" :key="feature">
+          <li v-for="feature in featuresList" :key="feature" @click="redirectToFeaturePage(feature)">
             {{ feature }}
           </li>
         </ul>
@@ -48,6 +48,9 @@ export default {
   methods: {
     openFeaturesMenu() {
       this.menuOpen = !this.menuOpen
+    },
+    redirectToFeaturePage(featureName) {
+      this.$router.push({ name: featureName });
     }
   }
 }
@@ -77,11 +80,17 @@ export default {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    list-style-type: none;
     transition: opacity 0.3s ease;
 
     li {
       font-size: 0.9rem;
+      cursor: pointer;
+      transition: linear 0.05s;
+
+      &:hover {
+        font-weight: 600;
+        text-decoration: underline;
+      }
     }
   }
 
