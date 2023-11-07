@@ -7,14 +7,16 @@
     />
     <input
       :id="id"
-      v-model="inputText"
+      v-model="insideText"
       type="text"
       :placeholder="placeholder"
       :autocomplete="autocomplete"
+      :disabled="disabled"
       class="base-input"
       :class="{
         'base-input--search': isSearch
       }"
+      @input="emitTyping"
     />
   </div>
 </template>
@@ -34,16 +36,27 @@ export default {
     },
     isSearch: {
       type: Boolean
+    },
+    disabled: {
+      type: Boolean
+    },
+    value: {
+      type: String
     }
   },
   data() {
     return {
-      inputText: ''
+      insideText: this.value
     }
   },
   watch: {
-    inputText() {
-      this.$emit('update-input', this.inputText)
+    value(newText) {
+      this.insideText = newText;
+    }
+  },
+  methods: {
+    emitTyping() {
+      this.$emit('update-input', this.insideText);
     }
   }
 }

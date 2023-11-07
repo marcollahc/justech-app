@@ -7,7 +7,10 @@ import TheHome from '@/components/TheHome.vue'
 
 export default {
   name: 'HomeView',
-  components: { TheHome }
+  components: { TheHome },
+  data() {
+    return {}
+  }
 }
 </script>
 

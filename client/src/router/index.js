@@ -14,8 +14,8 @@ const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
-      path: '/',
-      name: 'home',
+      path: '/home',
+      name: 'HomePage',
       component: HomeView
     },
     {

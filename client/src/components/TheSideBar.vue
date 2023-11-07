@@ -6,6 +6,7 @@
         type="tertiary"
         :before-icon="['fas', 'house']"
         :uppercase="false"
+        :on-click="() => redirectToPage('HomePage')"
       ></base-button>
 
       <base-button
@@ -93,16 +94,19 @@ export default {
     }
   },
   methods: {
+    redirectToPage(pageName) {
+      this.$router.push({ name: pageName });
+    }
   }
 };
 </script>
 
 <style lang="scss">
-
 .side-bar-wrapper {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  overflow: auto;
   width: 100%;
   border: solid $border-gray;
   border-width: 0 0.063rem 0.063rem 0.063rem;

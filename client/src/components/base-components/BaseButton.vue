@@ -8,7 +8,7 @@
     @click="invokeOnClickFunction()"
   >
     <font-awesome-icon class="base-button__before-icon" v-if="beforeIcon" :icon="beforeIcon" />
-    <span>{{ text }}</span>
+    <span v-if="text">{{ text }}</span>
     <font-awesome-icon class="base-button__after-icon" v-if="afterIcon" :icon="afterIcon" />
   </button>
 </template>
@@ -108,8 +108,8 @@ export default {
     &:not([disabled]):active,
     &:not([disabled]):focus {
       color: #ffff;
-      background-color: red !important;
-      border-color: red !important;
+      background-color: rgb(58, 149, 187) !important;
+      border-color: rgb(58, 149, 187) !important;
     }
 
     &:focus {
