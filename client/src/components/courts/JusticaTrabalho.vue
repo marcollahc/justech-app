@@ -76,7 +76,21 @@
       </div>
 
       <div class="justica-trabalho-wrapper__movements-container">
-        <h4>Movimentações</h4>
+        <h4>Últimas movimentações</h4>
+        <div
+          class="justica-trabalho-wrapper__movement"
+          v-for="(movement, index) in process.movements"
+          :key="index"
+        >
+          <div class="justica-trabalho-wrapper__input-group movement-inputs">
+            <label for="process-last-update">Nome</label>
+            <base-input :value="movement.nome" id="process-format" disabled></base-input>
+          </div>
+          <div class="justica-trabalho-wrapper__input-group movement-inputs">
+            <label for="process-last-update">Data e hora</label>
+            <base-input :value="movement.dataHora" id="process-format" disabled></base-input>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -91,6 +105,7 @@ export default {
   data() {
     return {
       processNumber: '',
+      processMovements: [],
       process: {}
     }
   },
@@ -103,6 +118,7 @@ export default {
       this.processNumber = writedProcess.replace(/[^a-zA-Z0-9]/g, '')
     },
     mountProcessDataToPrint(rawProcess) {
+      console.log(rawProcess)
       this.process.class = rawProcess.classe.nome
       this.process.judgeName = rawProcess.orgaoJulgador.nome
       this.process.system = rawProcess.sistema.nome
@@ -111,11 +127,17 @@ export default {
       this.process.lastUpdateTime = moment(rawProcess.dataHoraUltimaAtualizacao).format(
         'DD/MM/YYYY HH:ss'
       )
-
+      this.process.movements = this.getLastProcessMovements(rawProcess.movimentos)
+      console.log(this.process)
       this.process.subjects = this.extractSubjectsFromProcess(rawProcess.assuntos)
     },
     extractSubjectsFromProcess(rawSubjects) {
-      return rawSubjects.map(subject => subject.nome.trim()).join(', ');
+      return rawSubjects.map((subject) => subject.nome.trim()).join(', ')
+    },
+    getLastProcessMovements(allMovements) {
+      const movements = allMovements.slice(Math.max(allMovements.length - 5, 1))
+      movements.forEach(movement => movement.dataHora = moment(movement.dataHora).format('DD/MM/YYYY HH:ss'))
+      return movements
     }
   }
 }
@@ -196,10 +218,23 @@ export default {
   }
 
   &__movements-container {
+    display: flex;
+    flex-direction: column;
+
     h4 {
       font-size: 1rem;
       font-weight: 600;
       padding: 1rem;
+    }
+  }
+
+  &__movement {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1rem 1rem 1rem;
+
+    .movement-inputs {
+      width: 48%;
     }
   }
 }

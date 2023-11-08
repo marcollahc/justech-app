@@ -67,6 +67,7 @@ export default {
   display: flex;
   align-items: center;
   width: 100%;
+  position: relative;
 
   &__icon {
     color: #495057;
