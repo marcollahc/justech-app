@@ -1,14 +1,14 @@
 <template>
-  <section class="justica-eleitoral-wrapper">
-    <div class="justica-eleitoral-wrapper__title-container">
-      <h1>Consulte seus processos</h1>
+  <section class="court-wrapper">
+    <div class="court-wrapper__title-container">
+      <h1>Consulte seus processos - {{ courtName }}</h1>
       <h2>
         Para verificar o andamento do seu processo, basta digitar no campo abaixo o código de
         referência.
       </h2>
     </div>
 
-    <div class="justica-eleitoral-wrapper__search-container">
+    <div class="court-wrapper__search-container">
       <base-input
         v-model="processNumber"
         @update-input="defineWritedProcessNumber"
@@ -27,33 +27,33 @@
       ></base-button>
     </div>
 
-    <div class="justica-eleitoral-wrapper__processes-container">
+    <div class="court-wrapper__processes-container">
       <h3>Processo Nº {{ processNumber }}</h3>
 
-      <div class="justica-eleitoral-wrapper__fields-container">
-        <div class="justica-eleitoral-wrapper__input-group">
+      <div class="court-wrapper__fields-container">
+        <div class="court-wrapper__input-group">
           <label for="process-class">Classe</label>
           <base-input :value="process.class" id="process-class" disabled></base-input>
         </div>
 
-        <div class="justica-eleitoral-wrapper__input-group">
+        <div class="court-wrapper__input-group">
           <label for="process-judge">Órgão julgador</label>
           <base-input :value="process.judgeName" id="process-judge" disabled></base-input>
         </div>
 
-        <div class="justica-eleitoral-wrapper__input-group">
+        <div class="court-wrapper__input-group">
           <label for="process-system">Sistema</label>
           <base-input :value="process.system" id="process-system" disabled></base-input>
         </div>
       </div>
 
-      <div class="justica-eleitoral-wrapper__fields-container">
-        <div class="justica-eleitoral-wrapper__input-group">
+      <div class="court-wrapper__fields-container">
+        <div class="court-wrapper__input-group">
           <label for="process-initial-date">Data de entrada</label>
           <base-input :value="process.initialDate" id="process-initial-date" disabled></base-input>
         </div>
 
-        <div class="justica-eleitoral-wrapper__input-group">
+        <div class="court-wrapper__input-group">
           <label for="process-last-update">Data última atualização</label>
           <base-input
             :value="process.lastUpdateTime"
@@ -62,31 +62,31 @@
           ></base-input>
         </div>
 
-        <div class="justica-eleitoral-wrapper__input-group">
+        <div class="court-wrapper__input-group">
           <label for="process-last-update">Formato</label>
           <base-input :value="process.format" id="process-format" disabled></base-input>
         </div>
       </div>
 
-      <div class="justica-eleitoral-wrapper__fields-container subjects">
-        <div class="justica-eleitoral-wrapper__input-group subject-input-group">
+      <div class="court-wrapper__fields-container subjects">
+        <div class="court-wrapper__input-group subject-input-group">
           <label for="process-subjects">Assuntos</label>
           <base-input :value="process.subjects" id="process-subjects" disabled></base-input>
         </div>
       </div>
 
-      <div class="justica-eleitoral-wrapper__movements-container">
+      <div class="court-wrapper__movements-container">
         <h4>Últimas movimentações</h4>
         <div
-          class="justica-eleitoral-wrapper__movement"
+          class="court-wrapper__movement"
           v-for="(movement, index) in process.movements"
           :key="index"
         >
-          <div class="justica-eleitoral-wrapper__input-group movement-inputs">
+          <div class="court-wrapper__input-group movement-inputs">
             <label for="process-last-update">Nome</label>
             <base-input :value="movement.nome" id="process-format" disabled></base-input>
           </div>
-          <div class="justica-eleitoral-wrapper__input-group movement-inputs">
+          <div class="court-wrapper__input-group movement-inputs">
             <label for="process-last-update">Data e hora</label>
             <base-input :value="movement.dataHora" id="process-format" disabled></base-input>
           </div>
@@ -97,21 +97,26 @@
 </template>
 
 <script>
-import justicaFederalClient from '@/http/justica-federal-client'
+import courtClient from '@/http/court-client'
 import moment from 'moment'
 
 export default {
-  name: 'JusticaEleitoral',
+  name: 'CourtTemplate',
+  props: {
+    courtName: String,
+    courtFlag: String,
+  },
   data() {
     return {
       processNumber: '',
       processMovements: [],
-      process: {}
+      process: {},
+      courtIdentifier: ''
     }
   },
   methods: {
     async searchProcessByNumber() {
-      const rawProcess = await justicaFederalClient.getProcessByCourt()
+      const rawProcess = await courtClient.getProcessByCourt(this.courtFlag, this.courtIdentifier, this.processNumber)
       this.mountProcessDataToPrint(rawProcess)
     },
     defineWritedProcessNumber(writedProcess) {
@@ -144,7 +149,7 @@ export default {
 </script>
 
 <style lang="scss">
-.justica-eleitoral-wrapper {
+.court-wrapper {
   display: flex;
   flex-direction: column;
   width: 100%;

@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 export default {
-  async getProcessByCourt(courtNumber = 5, processNumber = '08000789020184058200') {
-    const baseUrl = `https://api-publica.datajud.cnj.jus.br/api_publica_trf${courtNumber}/_search`
+  async getProcessByCourt(court, courtIdentifier = 5, processNumber = '08000789020184058200') {
+    const baseUrl = `https://api-publica.datajud.cnj.jus.br/api_publica_${court}${courtIdentifier}/_search`
     const processNumberBody = JSON.stringify({
       query: {
         match: {

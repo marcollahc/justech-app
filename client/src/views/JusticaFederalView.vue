@@ -1,13 +1,16 @@
 <template>
-  <justica-federal></justica-federal>
+  <court-template
+    court-name="Justiça Federal"
+    court-flag="trf"
+  ></court-template>
 </template>
 
 <script>
-import JusticaFederal from '@/components/courts/JusticaFederal.vue';
+import courtTemplate from '@/components/CourtTemplate.vue';
 
 export default {
   name: 'JusticaFederalView',
-  components: { JusticaFederal }
+  components: { courtTemplate }
 }
 </script>
 
