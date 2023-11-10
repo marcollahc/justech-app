@@ -1,14 +1,14 @@
 <template>
-  <section class="justica-trabalho-wrapper">
-    <div class="justica-trabalho-wrapper__title-container">
-      <h1>Consulte seus processos</h1>
+  <section class="court-wrapper">
+    <div class="court-wrapper__title-container">
+      <h1>Consulte seus processos - {{ courtName }}</h1>
       <h2>
         Para verificar o andamento do seu processo, basta digitar no campo abaixo o código de
         referência.
       </h2>
     </div>
 
-    <div class="justica-trabalho-wrapper__search-container">
+    <div class="court-wrapper__search-container">
       <base-input
         v-model="processNumber"
         @update-input="defineWritedProcessNumber"
@@ -17,6 +17,16 @@
         is-search
         @keyup.enter="searchProcessByNumber"
       ></base-input>
+
+      <base-select
+        v-model="complementSelectedOption"
+        id="process-extra-select"
+        name="complement-select"
+        :placeholder="mountPlaceholderByCourt()"
+        :select-options="courtsWithStates.length ? courtsWithStates : courtsWithRegions"
+      >
+      </base-select>
+
       <base-button
         type="primary"
         text="Pesqusar"
@@ -27,33 +37,33 @@
       ></base-button>
     </div>
 
-    <div class="justica-trabalho-wrapper__processes-container">
+    <div class="court-wrapper__processes-container">
       <h3>Processo Nº {{ processNumber }}</h3>
 
-      <div class="justica-trabalho-wrapper__fields-container">
-        <div class="justica-trabalho-wrapper__input-group">
+      <div class="court-wrapper__fields-container">
+        <div class="court-wrapper__input-group">
           <label for="process-class">Classe</label>
           <base-input :value="process.class" id="process-class" disabled></base-input>
         </div>
 
-        <div class="justica-trabalho-wrapper__input-group">
+        <div class="court-wrapper__input-group">
           <label for="process-judge">Órgão julgador</label>
           <base-input :value="process.judgeName" id="process-judge" disabled></base-input>
         </div>
 
-        <div class="justica-trabalho-wrapper__input-group">
+        <div class="court-wrapper__input-group">
           <label for="process-system">Sistema</label>
           <base-input :value="process.system" id="process-system" disabled></base-input>
         </div>
       </div>
 
-      <div class="justica-trabalho-wrapper__fields-container">
-        <div class="justica-trabalho-wrapper__input-group">
+      <div class="court-wrapper__fields-container">
+        <div class="court-wrapper__input-group">
           <label for="process-initial-date">Data de entrada</label>
           <base-input :value="process.initialDate" id="process-initial-date" disabled></base-input>
         </div>
 
-        <div class="justica-trabalho-wrapper__input-group">
+        <div class="court-wrapper__input-group">
           <label for="process-last-update">Data última atualização</label>
           <base-input
             :value="process.lastUpdateTime"
@@ -62,31 +72,31 @@
           ></base-input>
         </div>
 
-        <div class="justica-trabalho-wrapper__input-group">
+        <div class="court-wrapper__input-group">
           <label for="process-last-update">Formato</label>
           <base-input :value="process.format" id="process-format" disabled></base-input>
         </div>
       </div>
 
-      <div class="justica-trabalho-wrapper__fields-container subjects">
-        <div class="justica-trabalho-wrapper__input-group subject-input-group">
+      <div class="court-wrapper__fields-container subjects">
+        <div class="court-wrapper__input-group subject-input-group">
           <label for="process-subjects">Assuntos</label>
           <base-input :value="process.subjects" id="process-subjects" disabled></base-input>
         </div>
       </div>
 
-      <div class="justica-trabalho-wrapper__movements-container">
+      <div class="court-wrapper__movements-container">
         <h4>Últimas movimentações</h4>
         <div
-          class="justica-trabalho-wrapper__movement"
+          class="court-wrapper__movement"
           v-for="(movement, index) in process.movements"
           :key="index"
         >
-          <div class="justica-trabalho-wrapper__input-group movement-inputs">
+          <div class="court-wrapper__input-group movement-inputs">
             <label for="process-last-update">Nome</label>
             <base-input :value="movement.nome" id="process-format" disabled></base-input>
           </div>
-          <div class="justica-trabalho-wrapper__input-group movement-inputs">
+          <div class="court-wrapper__input-group movement-inputs">
             <label for="process-last-update">Data e hora</label>
             <base-input :value="movement.dataHora" id="process-format" disabled></base-input>
           </div>
@@ -97,21 +107,42 @@
 </template>
 
 <script>
-import justicaTrabalhoClient from '@/http/justica-trabalho-client'
+import courtClient from '@/http/court-client'
 import moment from 'moment'
 
 export default {
-  name: 'JusticaTrabalho',
+  name: 'GeneralCourtTemplate',
+  props: {
+    courtName: String,
+    courtFlag: String,
+    addonTest: String,
+    processTest: String,
+    courtsWithStates: Array,
+    courtsWithRegionsDetails: Object || null
+  },
   data() {
     return {
       processNumber: '',
+      complementSelectedOption: '',
+      courtIdentifier: '',
       processMovements: [],
       process: {}
     }
   },
+  computed: {
+    courtsWithRegions() {
+      return this.generateCourtsByRegionsQuantity();
+    }
+  },
   methods: {
     async searchProcessByNumber() {
-      const rawProcess = await justicaTrabalhoClient.getProcessByRegion(15, this.processNumber)
+      this.courtIdentifier = this.addonTest
+      this.processNumber = this.processTest
+      const rawProcess = await courtClient.getProcessByCourt(
+        this.courtFlag,
+        this.courtIdentifier,
+        this.processNumber
+      )
       this.mountProcessDataToPrint(rawProcess)
     },
     defineWritedProcessNumber(writedProcess) {
@@ -134,17 +165,39 @@ export default {
     extractSubjectsFromProcess(rawSubjects) {
       return rawSubjects.map((subject) => subject.nome.trim()).join(', ')
     },
+    mountPlaceholderByCourt() {
+      return this.courtsWithStates.length
+        ? 'Selecione o estado do tribunal'
+        : 'Selecione o número da região'
+    },
     getLastProcessMovements(allMovements) {
       const movements = allMovements.slice(Math.max(allMovements.length - 5, 1))
-      movements.forEach(movement => movement.dataHora = moment(movement.dataHora).format('DD/MM/YYYY HH:ss'))
+      movements.forEach(
+        (movement) => (movement.dataHora = moment(movement.dataHora).format('DD/MM/YYYY HH:ss'))
+      )
       return movements
+    },
+    generateCourtsByRegionsQuantity() {
+      const generatedCourtsRegions = []
+      const nameComplement = this.courtsWithRegionsDetails.acronym === 'trabalho' ? 'do Trabalho' : 'Federal'
+
+      for (let region = 1; region <= this.courtsWithRegionsDetails.quantity; region++) {
+        generatedCourtsRegions.push({
+          name: `Tribunal Regional ${nameComplement} da ${region}ª Região`,
+          acronym: `${region}`
+        })
+      }
+
+      console.log("asasas", generatedCourtsRegions)
+
+      return generatedCourtsRegions
     }
   }
 }
 </script>
 
 <style lang="scss">
-.justica-trabalho-wrapper {
+.court-wrapper {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -172,9 +225,15 @@ export default {
 
   &__search-container {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-    .base-input {
-      width: 97%;
+    .input-wrapper {
+      width: 57%;
+    }
+
+    .base-select {
+      width: 30%;
     }
   }
 

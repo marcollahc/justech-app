@@ -5,7 +5,7 @@
       <the-side-bar></the-side-bar>
     </section>
     <main class="main-wrapper__main-content">
-      <router-view></router-view>
+      <router-view :key="$route.path"></router-view>
     </main>
   </div>
 

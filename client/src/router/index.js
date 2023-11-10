@@ -1,14 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { HomeView, CourtView, TribunaisSuperioresView } from '@/views/index.js'
 import {
-  HomeView,
-  JusticaEleitoralView,
-  JusticaEstadualView,
-  JusticaFederalView,
-  JusticaMilitarView,
-  JusticaTrabalhoView,
-  TribunaisSuperioresView
-} from '@/views/index.js'
-
+  electoralJusticeCourts,
+  stateJusticeCourts,
+  militaryJusticeCourts,
+  higherCourts
+} from './complements.js'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -21,32 +18,73 @@ const router = createRouter({
     {
       path: '/consultas/justica-eleitoral',
       name: 'Justiça Eleitoral',
-      component: JusticaEleitoralView
+      component: CourtView,
+      props: {
+        courtName: 'Justiça Eleitoral',
+        courtFlag: 'tre-',
+        addonTest: 'ma',
+        processTest: '06008817120226100000',
+        courtsWithStates: electoralJusticeCourts,
+        courtsWithRegionsDetails: null
+      }
     },
     {
       path: '/consultas/justica-estadual',
       name: 'Justiça Estadual',
-      component: JusticaEstadualView
+      component: CourtView,
+      props: {
+        courtName: 'Justiça Estadual',
+        courtFlag: 'tj',
+        addonTest: '',
+        processTest: '',
+        courtsWithStates: stateJusticeCourts,
+        courtsWithRegionsDetails: null
+      }
     },
     {
       path: '/consultas/justica-federal',
       name: 'Justiça Federal',
-      component: JusticaFederalView
+      component: CourtView,
+      props: {
+        courtName: 'Justiça Federal',
+        courtFlag: 'trf',
+        addonTest: '5',
+        processTest: '08000789020184058200',
+        courtsWithStates: [],
+        courtsWithRegionsDetails: { quantity: 6, acronym: 'federal'}
+      }
     },
     {
       path: '/consultas/justica-militar',
       name: 'Justiça Militar',
-      component: JusticaMilitarView
+      component: CourtView,
+      props: {
+        courtName: 'Justiça Militar',
+        courtFlag: 'tjm',
+        addonTest: '',
+        processTest: '',
+        courtsWithStates: militaryJusticeCourts,
+        courtsWithRegionsDetails: null
+      }
     },
     {
       path: '/consultas/justica-trabalho',
       name: 'Justiça do Trabalho',
-      component: JusticaTrabalhoView
+      component: CourtView,
+      props: {
+        courtName: 'Justiça do Trabalho',
+        courtFlag: 'trt',
+        addonTest: '15',
+        processTest: '00113488220215150051',
+        courtsWithStates: [],
+        courtsWithRegionsDetails: { quantity: 24, acronym: 'trabalho'}
+      }
     },
     {
       path: '/consultas/tribunais-superiores',
       name: 'Tribunais Superiores',
-      component: TribunaisSuperioresView
+      component: TribunaisSuperioresView,
+      props: { higherCourts: higherCourts }
     }
   ]
 })

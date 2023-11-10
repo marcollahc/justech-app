@@ -80,7 +80,6 @@ export default {
 
 .base-input {
   font-family: $default-font;
-  display: block;
   width: 100%;
   height: 2.5rem;
   padding: 0.375rem 0.75rem;
@@ -89,9 +88,8 @@ export default {
   line-height: 1.5;
   color: #000;
   background-color: #fff;
-  background-clip: padding-box;
   box-shadow: 0 0rem 0.1rem rgba(0, 0, 0, 0.25);
-  border: 1px solid #ced4da;
+  border: 0.06rem solid #ced4da;
   border-radius: 0.375rem;
   transition:
     border-color 0.15s ease-in-out,
