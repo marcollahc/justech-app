@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { HomeView, CourtView, TribunaisSuperioresView } from '@/views/index.js'
+import { HomeView, DocumentsView, CourtView, TribunaisSuperioresView } from '@/views/index.js'
 import {
   electoralJusticeCourts,
   stateJusticeCourts,
@@ -14,6 +14,11 @@ const router = createRouter({
       path: '/home',
       name: 'HomePage',
       component: HomeView
+    },
+    {
+      path: '/documentos',
+      name: 'Documents',
+      component: DocumentsView
     },
     {
       path: '/consultas/justica-eleitoral',

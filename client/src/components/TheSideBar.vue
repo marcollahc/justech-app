@@ -16,6 +16,14 @@
         :uppercase="false"
       ></base-button>
 
+      <base-button
+        text="Documentos"
+        type="tertiary"
+        :before-icon="['fas', 'file']"
+        :uppercase="false"
+        :on-click="() => redirectToPage('Documents')"
+      ></base-button>
+
       <h3>Processos</h3>
 
       <features-list

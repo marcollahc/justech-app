@@ -37,8 +37,10 @@
       ></base-button>
     </div>
 
-    <div class="court-wrapper__processes-container">
-      <h3>Processo Nº {{ processNumber }}</h3>
+    <the-loader class="court-wrapper__loader" v-if="isLoading"></the-loader>
+
+    <div class="court-wrapper__processes-container" v-if="Object.keys(process).length">
+      <h3>Processo Nº {{ this.process.number }}</h3>
 
       <div class="court-wrapper__fields-container">
         <div class="court-wrapper__input-group">
@@ -108,10 +110,12 @@
 
 <script>
 import courtClient from '@/http/court-client'
+import TheLoader from '../unique-components/TheLoad.vue';
 import moment from 'moment'
 
 export default {
   name: 'GeneralCourtTemplate',
+  components: { TheLoader },
   props: {
     courtName: String,
     courtFlag: String,
@@ -126,7 +130,8 @@ export default {
       complementSelectedOption: '',
       courtIdentifier: '',
       processMovements: [],
-      process: {}
+      process: {},
+      isLoading: false
     }
   },
   computed: {
@@ -136,6 +141,7 @@ export default {
   },
   methods: {
     async searchProcessByNumber() {
+      this.isLoading = true;
       this.courtIdentifier = this.addonTest
       this.processNumber = this.processTest
       const rawProcess = await courtClient.getProcessByCourt(
@@ -144,12 +150,14 @@ export default {
         this.processNumber
       )
       this.mountProcessDataToPrint(rawProcess)
+      this.isLoading = false;
     },
     defineWritedProcessNumber(writedProcess) {
       this.processNumber = writedProcess.replace(/[^a-zA-Z0-9]/g, '')
     },
     mountProcessDataToPrint(rawProcess) {
-      console.log(rawProcess)
+      this.process = {};
+      this.process.number = this.processNumber
       this.process.class = rawProcess.classe.nome
       this.process.judgeName = rawProcess.orgaoJulgador.nome
       this.process.system = rawProcess.sistema.nome
@@ -159,7 +167,6 @@ export default {
         'DD/MM/YYYY HH:ss'
       )
       this.process.movements = this.getLastProcessMovements(rawProcess.movimentos)
-      console.log(this.process)
       this.process.subjects = this.extractSubjectsFromProcess(rawProcess.assuntos)
     },
     extractSubjectsFromProcess(rawSubjects) {
@@ -200,6 +207,7 @@ export default {
 .court-wrapper {
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 100%;
   padding: 3rem;
   gap: 2rem;
@@ -223,10 +231,15 @@ export default {
     }
   }
 
+  &__loader {
+    padding-top: 3rem;
+  }
+
   &__search-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
 
     .input-wrapper {
       width: 57%;
@@ -240,6 +253,7 @@ export default {
   &__processes-container {
     display: flex;
     flex-direction: column;
+    width: 100%;
     box-shadow: 0 0rem 0.1rem rgba(0, 0, 0, 0.25);
     border: 1px solid #ced4da;
     border-radius: 0.375rem;

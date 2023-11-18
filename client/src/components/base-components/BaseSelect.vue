@@ -1,26 +1,15 @@
 <template>
-  <select
-    :value="modelValue"
-    @input="$emit('update:modelValue', $event.target.value)"
+  <v-select
     :id="id"
-    :multiple="multiple"
-    :class="[
-      'base-select',
-      {
-        'base-select--is-placeholder': !modelValue
-      }
-    ]"
-  >
-    <option value="" disabled selected hidden>{{ placeholder }}</option>
-    <option
-      class="base-select__options"
-      v-for="(option, index) in selectOptions"
-      :key="index"
-      :value="option.acronym"
-    >
-      {{ option.name }}
-    </option>
-  </select>
+    :value="modelValue"
+    :options="selectOptions"
+    label="name"
+    index="acronym"
+    :placeholder="placeholder"
+    :clearable="false"
+    @input="$emit('update:modelValue', $event.target.value)"
+    class="base-select"
+  ></v-select>
 </template>
 
 <script>
@@ -33,41 +22,49 @@ export default {
     placeholder: String,
     selectOptions: Array,
     modelValue: String
+  },
+  methods: {
   }
 }
 </script>
 
 <style lang="scss">
-.base-select {
-  font-family: $default-font;
-  width: 100%;
-  height: 2.46rem;
-  padding: 0.37rem 0.75rem;
-  font-size: 1rem;
-  font-weight: 400;
-  color: #000;
-  background-color: #fff;
-  box-shadow: 0 0 0.3rem rgba(0, 0, 0, 0.25);
-  outline: 0.06rem solid #ced4da;
-  border-width: 0;
-  border-right: 1rem solid transparent;
-  border-radius: 0.375rem;
-  cursor: pointer;
-  transition:
-    border-color 0.15s ease-in-out,
-    box-shadow 0.15s ease-in-out;
-
-  &__options {
+.vs {
+  &__dropdown-toggle {
+    align-items: center;
+    font-family: $default-font;
+    width: 100%;
+    height: 2.46rem;
+    font-size: 1rem;
+    font-weight: 400;
+    background-color: #fff;
+    box-shadow: 0 0rem 0.1rem rgba(0, 0, 0, 0.25);
+    border: 0.06rem solid #ced4da;
+    border-radius: 0.375rem;
     cursor: pointer;
   }
 
-  &--is-placeholder {
-    color: rgba(143, 143, 143, 0.7);
+  &__actions {
+    padding: 0.5rem 0.5rem 0 0;
   }
 
-  &:disabled {
-    color: #495057;
-    font-weight: 300;
+  &__selected-options {
+    input {
+      font-family: $default-font;
+      &::placeholder {
+        color: rgba(143, 143, 143, 1);
+      }
+    }
+  }
+
+  &__dropdown-menu {
+    --vs-dropdown-option--active-bg: #09BC8A;
+    li {
+      padding: 0.5rem;
+      &:hover {
+        background-color: $secundary;
+      }
+    }
   }
 }
 </style>

@@ -1,10 +1,6 @@
 <template>
   <button
-    :class="[
-      'base-button',
-      `base-button--${type}`,
-      { 'base-button--uppercase': uppercase}
-    ]"
+    :class="['base-button', `base-button--${type}`, { 'base-button--uppercase': uppercase }]"
     @click="invokeOnClickFunction()"
   >
     <font-awesome-icon class="base-button__before-icon" v-if="beforeIcon" :icon="beforeIcon" />
@@ -51,14 +47,13 @@ export default {
   },
   methods: {
     invokeOnClickFunction() {
-      this.onClick();
+      this.onClick()
     }
   }
 }
 </script>
 
 <style lang="scss">
-
 .base-button {
   display: flex;
   align-items: center;
@@ -163,6 +158,36 @@ export default {
       color: #000;
       background-color: #09bc895e;
       border-color: #09bc895e;
+
+      svg,
+      path {
+        fill: #000;
+      }
+    }
+
+    &:focus {
+      box-shadow: none !important;
+    }
+
+    svg,
+    path {
+      fill: #000;
+    }
+  }
+
+  &--quaternary {
+    color: #000;
+    border: none;
+    background-color: transparent;
+    box-shadow: none;
+    border-radius: 0.25rem;
+
+    &:not([disabled]):hover,
+    &:not([disabled]):active,
+    &:not([disabled]):focus {
+      color: #000;
+      background-color: #dddd;
+      border-color: #dddd;
 
       svg,
       path {

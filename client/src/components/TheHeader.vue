@@ -1,6 +1,6 @@
 <template>
   <header class="header">
-    <font-awesome-icon :icon="['fas', 'cubes']" />
+    <font-awesome-icon :icon="['fas', 'user-astronaut']" />
     <h1> FutureTech Labs</h1>
   </header>
 </template>
@@ -19,16 +19,17 @@ export default {
     align-items: center;
     gap: 0.5rem;
     width: 100%;
-    background: linear-gradient(0deg, #F2F2F2, #F2F2F2),
-                linear-gradient(0deg, #FAFAFA, #FAFAFA);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(23,42,58,1) 100%);
     border: solid $border-gray;
     border-width: 0 0.063rem 0.063rem 0;
 
     h1 {
+      color: #fff;
       font-weight: 700;
     }
 
-    svg {
+    svg, path {
+      fill: #fff;
       font-size: 1.5rem;
     }
   }
