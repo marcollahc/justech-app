@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import TheHome from '@/components/TheHome.vue'
+import TheHome from '@/components/unique-components/TheHome.vue'
 
 export default {
   name: 'HomeView',

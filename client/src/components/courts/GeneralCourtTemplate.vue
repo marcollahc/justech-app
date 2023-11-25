@@ -286,7 +286,7 @@ export default {
     justify-content: center;
 
     .subject-input-group {
-      width: 90%;
+      width: 100%;
     }
   }
 

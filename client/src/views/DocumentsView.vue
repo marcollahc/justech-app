@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import DocumentsPage from '@/components/Documents.vue'
+import DocumentsPage from '@/components/documents/Documents.vue'
 
 export default {
   name: 'HomeView',

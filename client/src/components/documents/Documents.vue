@@ -8,10 +8,7 @@
       </h2>
     </div>
 
-    <div class="documents-page-wrapper__upload-container">
-      <font-awesome-icon :icon="['fas', 'file-arrow-up']" />
-      <p><a>Clique aqui</a> ou arraste o arquivo</p>
-    </div>
+    <drop-zone></drop-zone>
 
     <div class="documents-page-wrapper__filter-container">
       <base-input
@@ -28,14 +25,37 @@
         placeholder="Categoria"
       ></base-select>
     </div>
+
+    <documents-list :user-documents="JSON.parse(filesHistory)"></documents-list>
   </section>
 </template>
 
 <script>
+import DropZone from './DropZone.vue';
+import DocumentsList from './DocumentsList.vue';
+
 export default {
   name: 'DocumentsPage',
+  components: {
+    DropZone,
+    DocumentsList
+  },
   data() {
-    return {}
+    return {
+      filesHistory: []
+    }
+  },
+  methods: {
+    downloadFile(file) {
+      const downloadLink = document.createElement('a')
+      downloadLink.href = URL.createObjectURL(file)
+      downloadLink.download = file.name
+      downloadLink.click()
+    }
+  },
+  created() {
+    const filesHistoryFromLocalStorage = localStorage.getItem('filesHistory')
+    this.filesHistory = filesHistoryFromLocalStorage || []
   }
 }
 </script>
@@ -64,26 +84,6 @@ export default {
       font-weight: 400;
       color: #868686;
       width: 60%;
-    }
-  }
-
-  &__upload-container {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding: 3rem;
-    border-radius: 0.625rem;
-    align-items: center;
-    border: 0.063rem solid $border-gray;
-
-    svg {
-      font-size: 4rem;
-      color: $primary;
-    }
-
-    a {
-      cursor: pointer;
-      text-decoration: underline;
     }
   }
 

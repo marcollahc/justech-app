@@ -1,5 +1,5 @@
-import TheSideBar from './TheSideBar.vue';
-import TheHeader from './TheHeader.vue';
+import TheSideBar from './unique-components/TheSideBar.vue';
+import TheHeader from './unique-components/TheHeader.vue';
 import FeaturesList from './FeaturesList.vue';
 import ProcessesList from './ProcessesList.vue';
 
