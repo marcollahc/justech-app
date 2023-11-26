@@ -14,6 +14,7 @@
         type="tertiary"
         :before-icon="['far', 'clock']"
         :uppercase="false"
+        disabled
       ></base-button>
 
       <base-button
@@ -34,13 +35,13 @@
       >
       </features-list>
 
-      <features-list
+      <!-- <features-list
         class="side-bar-wrapper__features"
         list-title="Criar documento"
         :icon="['fas', 'file-signature']"
         :features-list="createDocumentFeatures"
       >
-      </features-list>
+      </features-list> -->
     </div>
 
     <div class="side-bar-wrapper__your-account-section">
@@ -52,6 +53,7 @@
         text="Meu plano"
         type="tertiary"
         :uppercase="false"
+        disabled
       >
       </base-button>
 
@@ -61,6 +63,7 @@
         text="Configurações"
         type="tertiary"
         :uppercase="false"
+        disabled
       >
       </base-button>
 
@@ -70,6 +73,7 @@
         text="Sair"
         type="tertiary"
         :uppercase="false"
+        disabled
       >
       </base-button>
     </div>
@@ -89,8 +93,7 @@ export default {
         'Justiça Estadual',
         'Justiça Federal',
         'Justiça Militar',
-        'Justiça do Trabalho',
-        'Tribunais Superiores'
+        'Justiça do Trabalho'
       ],
       createDocumentFeatures: [
         'Petição inicial',
@@ -159,7 +162,7 @@ export default {
     justify-content: flex-start;
 
     span {
-      font-weight: 300;
+      font-weight: 400;
     }
 
     &:hover {

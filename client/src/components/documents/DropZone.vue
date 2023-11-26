@@ -37,6 +37,8 @@
 </template>
 
 <script>
+import { uuid } from 'vue-uuid';
+
 export default {
   name: 'DropZone',
   data() {
@@ -50,7 +52,7 @@ export default {
     },
     handleFileChange(event) {
       const files = event.target.files
-      if (files.length > 0) {
+      if (files.length) {
         this.filesToUpload = [...this.filesToUpload, ...Array.from(files)]
       }
     },
@@ -62,32 +64,34 @@ export default {
       }
     },
     uploadFiles() {
-      if (this.filesToUpload.length > 0) {
+      if (this.filesToUpload.length) {
         localStorage.filesHistory = JSON.stringify(this.mountFileStructure())
+        this.$emit('files-uploaded')
       }
     },
     mountFileStructure() {
       const userFiles = localStorage.filesHistory ? JSON.parse(localStorage.filesHistory) : []
-      const structuredFilesToUpload = this.filesToUpload.map(file => ({
+      const structuredFilesToUpload = this.filesToUpload.map((file) => ({
+        id: uuid.v4(),
         name: file.name,
         size: file.size,
         type: file.type,
         lastTimeModified: file.lastModifiedDate,
         processedUrl: URL.createObjectURL(file)
-      }));
+      }))
 
-      structuredFilesToUpload.forEach(file => userFiles.push(file))
+      structuredFilesToUpload.forEach((file) => userFiles.push(file))
       return userFiles
+    },
+    previewFile(file) {
+      const downloadLink = document.createElement('a')
+      downloadLink.href = URL.createObjectURL(file)
+      downloadLink.download = file.name
+      downloadLink.click()
+    },
+    deleteFileFromUploadList(fileIndex) {
+      this.filesToUpload.splice(fileIndex, 1)
     }
-  },
-  previewFile(file) {
-    const downloadLink = document.createElement('a')
-    downloadLink.href = URL.createObjectURL(file)
-    downloadLink.download = file.name
-    downloadLink.click()
-  },
-  deleteFileFromUploadList(fileIndex) {
-    this.filesToUpload.splice(fileIndex, 1)
   }
 }
 </script>

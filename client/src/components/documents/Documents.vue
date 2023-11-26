@@ -8,7 +8,7 @@
       </h2>
     </div>
 
-    <drop-zone></drop-zone>
+    <drop-zone @files-uploaded="refreshPage"></drop-zone>
 
     <div class="documents-page-wrapper__filter-container">
       <base-input
@@ -26,7 +26,7 @@
       ></base-select>
     </div>
 
-    <documents-list :user-documents="JSON.parse(filesHistory)"></documents-list>
+    <documents-list :user-documents="getFilesHistory()"></documents-list>
   </section>
 </template>
 
@@ -40,23 +40,21 @@ export default {
     DropZone,
     DocumentsList
   },
-  data() {
-    return {
-      filesHistory: []
-    }
-  },
   methods: {
     downloadFile(file) {
       const downloadLink = document.createElement('a')
       downloadLink.href = URL.createObjectURL(file)
       downloadLink.download = file.name
       downloadLink.click()
+    }, 
+    getFilesHistory() {
+      const filesHistoryFromLocalStorage = localStorage.getItem('filesHistory')
+      return filesHistoryFromLocalStorage || []
+    },
+    refreshPage() {
+      this.$router.go()
     }
   },
-  created() {
-    const filesHistoryFromLocalStorage = localStorage.getItem('filesHistory')
-    this.filesHistory = filesHistoryFromLocalStorage || []
-  }
 }
 </script>
 

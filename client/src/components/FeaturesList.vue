@@ -19,8 +19,6 @@
             v-for="feature in featuresList"
             :key="feature"
           >
-            <!-- <font-awesome-icon :icon="" /> -->
-            <!-- {{ feature }} -->
             <base-button
               :text="feature"
               type="quaternary"

@@ -119,15 +119,15 @@ export default {
 
   &--secundary {
     color: $default-white;
-    border-color: $default-white;
+    border-color: $secundary;
     background-color: $secundary;
 
     &:not([disabled]):hover,
     &:not([disabled]):active,
     &:not([disabled]):focus {
       color: #ffff;
-      background-color: red !important;
-      border-color: red !important;
+      background-color: #0deeae !important;
+      border-color: #0deeae !important;
 
       svg,
       path {

@@ -8,6 +8,16 @@
       </h2>
     </div>
 
+    <div class="court-wrapper__test_tooltip" v-if="this.processTest">
+      <div class="court-wrapper__test-data">
+        <h3>
+          <font-awesome-icon :icon="['fas', 'circle-info']" />Utilize essas informações para teste
+        </h3>
+        <h4>Nº processo: {{ this.processTest }}</h4>
+        <h4>Região/Sigla estado: {{ this.addonTest.toUpperCase() }}</h4>
+      </div>
+    </div>
+
     <div class="court-wrapper__search-container">
       <base-input
         v-model="processNumber"
@@ -31,7 +41,7 @@
         type="primary"
         text="Pesqusar"
         :on-click="searchProcessByNumber"
-        :disabled="!processNumber"
+        :disabled="!processNumber || !complementSelectedOption"
         :before-icon="['fas', 'magnifying-glass']"
         uppercase
       ></base-button>
@@ -110,7 +120,7 @@
 
 <script>
 import courtClient from '@/http/court-client'
-import TheLoader from '../unique-components/TheLoad.vue';
+import TheLoader from '../unique-components/TheLoad.vue'
 import moment from 'moment'
 
 export default {
@@ -128,7 +138,6 @@ export default {
     return {
       processNumber: '',
       complementSelectedOption: '',
-      courtIdentifier: '',
       processMovements: [],
       process: {},
       isLoading: false
@@ -136,27 +145,25 @@ export default {
   },
   computed: {
     courtsWithRegions() {
-      return this.generateCourtsByRegionsQuantity();
+      return this.generateCourtsByRegionsQuantity()
     }
   },
   methods: {
     async searchProcessByNumber() {
-      this.isLoading = true;
-      this.courtIdentifier = this.addonTest
-      this.processNumber = this.processTest
+      this.isLoading = true
       const rawProcess = await courtClient.getProcessByCourt(
         this.courtFlag,
-        this.courtIdentifier,
+        this.complementSelectedOption,
         this.processNumber
       )
       this.mountProcessDataToPrint(rawProcess)
-      this.isLoading = false;
+      this.isLoading = false
     },
     defineWritedProcessNumber(writedProcess) {
       this.processNumber = writedProcess.replace(/[^a-zA-Z0-9]/g, '')
     },
     mountProcessDataToPrint(rawProcess) {
-      this.process = {};
+      this.process = {}
       this.process.number = this.processNumber
       this.process.class = rawProcess.classe.nome
       this.process.judgeName = rawProcess.orgaoJulgador.nome
@@ -186,7 +193,8 @@ export default {
     },
     generateCourtsByRegionsQuantity() {
       const generatedCourtsRegions = []
-      const nameComplement = this.courtsWithRegionsDetails.acronym === 'trabalho' ? 'do Trabalho' : 'Federal'
+      const nameComplement =
+        this.courtsWithRegionsDetails.acronym === 'trabalho' ? 'do Trabalho' : 'Federal'
 
       for (let region = 1; region <= this.courtsWithRegionsDetails.quantity; region++) {
         generatedCourtsRegions.push({
@@ -195,7 +203,7 @@ export default {
         })
       }
 
-      console.log("asasas", generatedCourtsRegions)
+      console.log('asasas', generatedCourtsRegions)
 
       return generatedCourtsRegions
     }
@@ -228,6 +236,40 @@ export default {
       font-weight: 400;
       color: #868686;
       width: 60%;
+    }
+  }
+
+  &__test_tooltip {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  &__test-data {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    box-shadow: 0 0rem 0.1rem rgba(0, 0, 0, 0.25);
+    border: 1px solid #ced4da;
+    border-radius: 0.375rem;
+    gap: 1rem;
+    background-color: #dddd;
+    width: 30%;
+
+    h3 {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+
+      svg, path {
+        color: $primary;
+      }
+    }
+
+    h4 {
+      padding-left: 1rem;
     }
   }
 

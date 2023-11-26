@@ -1,13 +1,12 @@
 <template>
   <v-select
     :id="id"
-    :value="modelValue"
+    v-model="selectedOption"
     :options="selectOptions"
     label="name"
     index="acronym"
     :placeholder="placeholder"
     :clearable="false"
-    @input="$emit('update:modelValue', $event.target.value)"
     class="base-select"
   ></v-select>
 </template>
@@ -20,10 +19,17 @@ export default {
     name: String,
     multiple: Boolean,
     placeholder: String,
-    selectOptions: Array,
-    modelValue: String
+    selectOptions: Array
   },
-  methods: {
+  data() {
+    return {
+      selectedOption: ''
+    }
+  },
+  watch: {
+    selectedOption() {
+      this.$emit('update', this.selectedOption)
+    }
   }
 }
 </script>

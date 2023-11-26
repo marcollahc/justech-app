@@ -3,7 +3,7 @@
     <div class="loader-wrapper__logo">
       <p>Jus</p>
       <font-awesome-icon class="loader-wrapper__icon" :icon="['fas', 'scale-balanced']" />
-      <p>Connect</p>
+      <p>Tech</p>
     </div>
     <div class="loader-wrapper__loader">
       <div class="loader-wrapper__progress"></div>
@@ -39,7 +39,7 @@ export default {
   &__logo {
     display: flex;
     align-items: center;
-    padding-left: 0.2rem;
+    padding-left: 3rem;
     gap: 0.2rem;
   }
 
