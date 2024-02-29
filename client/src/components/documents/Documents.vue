@@ -11,19 +11,10 @@
     <drop-zone @files-uploaded="refreshPage"></drop-zone>
 
     <div class="documents-page-wrapper__filter-container">
-      <base-input
-        id="search-documents"
-        placeholder="Buscar documentos"
-        :autocomplete="false"
-        :is-search="true"
-        class="documents-page-wrapper__search-input"
-      ></base-input>
+      <base-input id="search-documents" placeholder="Buscar documentos" :autocomplete="false" :is-search="true"
+        class="documents-page-wrapper__search-input"></base-input>
 
-      <base-select
-        class="processes-filter-wrapper__select"
-        name="Categoria"
-        placeholder="Categoria"
-      ></base-select>
+      <base-select class="processes-filter-wrapper__select" name="Categoria" placeholder="Categoria"></base-select>
     </div>
 
     <documents-list :user-documents="getFilesHistory()"></documents-list>
@@ -46,10 +37,10 @@ export default {
       downloadLink.href = URL.createObjectURL(file)
       downloadLink.download = file.name
       downloadLink.click()
-    }, 
+    },
     getFilesHistory() {
       const filesHistoryFromLocalStorage = localStorage.getItem('filesHistory')
-      return filesHistoryFromLocalStorage || []
+      return filesHistoryFromLocalStorage || ""
     },
     refreshPage() {
       this.$router.go()

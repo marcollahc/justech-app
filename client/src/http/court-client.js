@@ -20,7 +20,6 @@ export default {
       })
 
       const extractedProcess = response.data.hits.hits
-      console.log('extracted', extractedProcess)
       return Array.isArray(extractedProcess) && extractedProcess.length
         ? extractedProcess[0]._source
         : []

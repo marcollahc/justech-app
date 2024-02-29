@@ -19,32 +19,17 @@
     </div>
 
     <div class="court-wrapper__search-container">
-      <base-input
-        v-model="processNumber"
-        @update-input="defineWritedProcessNumber"
-        id="search-processes"
-        placeholder="Digite o número do seu processo"
-        is-search
-        @keyup.enter="searchProcessByNumber"
-      ></base-input>
+      <base-input v-model="processNumber" @update-input="defineWritedProcessNumber" id="search-processes"
+        placeholder="Digite o número do seu processo" is-search @keyup.enter="searchProcessByNumber"></base-input>
 
-      <base-select
-        v-model="complementSelectedOption"
-        id="process-extra-select"
-        name="complement-select"
+      <base-select v-model="complementSelectedOption" id="process-extra-select" name="complement-select"
         :placeholder="mountPlaceholderByCourt()"
-        :select-options="courtsWithStates.length ? courtsWithStates : courtsWithRegions"
-      >
+        :select-options="courtsWithStates.length ? courtsWithStates : courtsWithRegions">
       </base-select>
 
-      <base-button
-        type="primary"
-        text="Pesqusar"
-        :on-click="searchProcessByNumber"
-        :disabled="!processNumber || !complementSelectedOption"
-        :before-icon="['fas', 'magnifying-glass']"
-        uppercase
-      ></base-button>
+      <base-button type="primary" text="Pesqusar" :on-click="searchProcessByNumber"
+        :disabled="!processNumber || !complementSelectedOption" :before-icon="['fas', 'magnifying-glass']"
+        uppercase></base-button>
     </div>
 
     <the-loader class="court-wrapper__loader" v-if="isLoading"></the-loader>
@@ -77,11 +62,7 @@
 
         <div class="court-wrapper__input-group">
           <label for="process-last-update">Data última atualização</label>
-          <base-input
-            :value="process.lastUpdateTime"
-            id="process-last-update"
-            disabled
-          ></base-input>
+          <base-input :value="process.lastUpdateTime" id="process-last-update" disabled></base-input>
         </div>
 
         <div class="court-wrapper__input-group">
@@ -99,11 +80,7 @@
 
       <div class="court-wrapper__movements-container">
         <h4>Últimas movimentações</h4>
-        <div
-          class="court-wrapper__movement"
-          v-for="(movement, index) in process.movements"
-          :key="index"
-        >
+        <div class="court-wrapper__movement" v-for="(movement, index) in process.movements" :key="index">
           <div class="court-wrapper__input-group movement-inputs">
             <label for="process-last-update">Nome</label>
             <base-input :value="movement.nome" id="process-format" disabled></base-input>
@@ -263,7 +240,8 @@ export default {
       font-size: 1rem;
       font-weight: 600;
 
-      svg, path {
+      svg,
+      path {
         color: $primary;
       }
     }
@@ -284,11 +262,11 @@ export default {
     width: 100%;
 
     .input-wrapper {
-      width: 57%;
+      width: 45%;
     }
 
     .base-select {
-      width: 30%;
+      width: 40%;
     }
   }
 

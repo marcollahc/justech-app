@@ -5,13 +5,8 @@
         <input type="checkbox" v-model="selectAll" @change="selectAllFiles" />
       </th>
       <th v-for="(header, index) in headers" :key="index">{{ header }}</th>
-      <base-button
-        text="Baixar todos"
-        type="secundary"
-        :uppercase="false"
-        :on-click="downloadSelectedFiles"
-        :disabled="!selectedFiles.length"
-      ></base-button>
+      <base-button text="Baixar todos" type="secundary" :uppercase="false" :on-click="downloadSelectedFiles"
+        :disabled="!selectedFiles.length"></base-button>
     </div>
     <div class="documents-list__table-body">
       <tr v-for="(document, index) in parsedUserFiles" :key="index">
@@ -25,16 +20,9 @@
         <td>{{ formatDocumentSize(document.size) }}KB</td>
 
         <div class="documents-list__file-actions">
-          <font-awesome-icon
-            class="preview-icon"
-            @click="downloadFile(document)"
-            :icon="['fas', 'download']"
-          />
-          <font-awesome-icon
-            class="delete-icon"
-            @click="deleteFileFromUploadList(document.id)"
-            :icon="['fas', 'circle-xmark']"
-          />
+          <font-awesome-icon class="preview-icon" @click="downloadFile(document)" :icon="['fas', 'download']" />
+          <font-awesome-icon class="delete-icon" @click="deleteFileFromUploadList(document.id)"
+            :icon="['fas', 'circle-xmark']" />
         </div>
       </tr>
     </div>

@@ -56,7 +56,7 @@ const router = createRouter({
         addonTest: '5',
         processTest: '08000789020184058200',
         courtsWithStates: [],
-        courtsWithRegionsDetails: { quantity: 6, acronym: 'federal'}
+        courtsWithRegionsDetails: { quantity: 6, acronym: 'federal' }
       }
     },
     {
@@ -82,14 +82,14 @@ const router = createRouter({
         addonTest: '15',
         processTest: '00113488220215150051',
         courtsWithStates: [],
-        courtsWithRegionsDetails: { quantity: 24, acronym: 'trabalho'}
+        courtsWithRegionsDetails: { quantity: 24, acronym: 'trabalho' }
       }
     },
     {
       path: '/consultas/tribunais-superiores',
       name: 'Tribunais Superiores',
-      component: TribunaisSuperioresView,
-      props: { higherCourts: higherCourts }
+      component: CourtView,
+      props: { courtName: 'Tribunais Superiores', courtsWithStates: higherCourts }
     }
   ]
 })

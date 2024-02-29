@@ -1,80 +1,35 @@
 <template>
   <aside class="side-bar-wrapper">
     <div class="side-bar-wrapper__main-features-section">
-      <base-button
-        text="Página inicial"
-        type="tertiary"
-        :before-icon="['fas', 'house']"
-        :uppercase="false"
-        :on-click="() => redirectToPage('HomePage')"
-      ></base-button>
+      <base-button text="Página inicial" type="tertiary" :before-icon="['fas', 'house']" :uppercase="false"
+        :on-click="() => redirectToPage('HomePage')"></base-button>
 
-      <base-button
-        text="Pendências"
-        type="tertiary"
-        :before-icon="['far', 'clock']"
-        :uppercase="false"
-        disabled
-      ></base-button>
+      <base-button text="Pendências" type="tertiary" :before-icon="['far', 'clock']" :uppercase="false"
+        disabled></base-button>
 
-      <base-button
-        text="Documentos"
-        type="tertiary"
-        :before-icon="['fas', 'file']"
-        :uppercase="false"
-        :on-click="() => redirectToPage('Documents')"
-      ></base-button>
+      <base-button text="Documentos" type="tertiary" :before-icon="['fas', 'file']" :uppercase="false"
+        :on-click="() => redirectToPage('Documents')"></base-button>
 
       <h3>Processos</h3>
 
-      <features-list
-        class="side-bar-wrapper__features"
-        list-title="Consultas"
-        :icon="['fas', 'building-columns']"
-        :features-list="queryFeatures"
-      >
+      <features-list class="side-bar-wrapper__features" list-title="Consultas" :icon="['fas', 'building-columns']"
+        :features-list="queryFeatures">
       </features-list>
-
-      <!-- <features-list
-        class="side-bar-wrapper__features"
-        list-title="Criar documento"
-        :icon="['fas', 'file-signature']"
-        :features-list="createDocumentFeatures"
-      >
-      </features-list> -->
     </div>
 
     <div class="side-bar-wrapper__your-account-section">
       <hr>
       <h3>Sua conta</h3>
-      <base-button 
-        class="list-wrapper__list-title"
-        :before-icon="['fas', 'medal']"
-        text="Meu plano"
-        type="tertiary"
-        :uppercase="false"
-        disabled
-      >
+      <base-button class="list-wrapper__list-title" :before-icon="['fas', 'medal']" text="Meu plano" type="tertiary"
+        :uppercase="false" disabled>
       </base-button>
 
-      <base-button 
-        class="list-wrapper__list-title teste"
-        :before-icon="['fas', 'gear']"
-        text="Configurações"
-        type="tertiary"
-        :uppercase="false"
-        disabled
-      >
+      <base-button class="list-wrapper__list-title teste" :before-icon="['fas', 'gear']" text="Configurações"
+        type="tertiary" :uppercase="false" disabled>
       </base-button>
 
-      <base-button 
-        class="list-wrapper__list-title"
-        :before-icon="['fas', 'arrow-right-from-bracket']"
-        text="Sair"
-        type="tertiary"
-        :uppercase="false"
-        disabled
-      >
+      <base-button class="list-wrapper__list-title" :before-icon="['fas', 'arrow-right-from-bracket']" text="Sair"
+        type="tertiary" :uppercase="false" disabled>
       </base-button>
     </div>
   </aside>
@@ -93,7 +48,8 @@ export default {
         'Justiça Estadual',
         'Justiça Federal',
         'Justiça Militar',
-        'Justiça do Trabalho'
+        'Justiça do Trabalho',
+        'Tribunais Superiores'
       ],
       createDocumentFeatures: [
         'Petição inicial',
